@@ -5,6 +5,11 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const connectDB = require('./app/config/db');
+const Handlebars = require('handlebars');
+const exphbs = require('express-handlebars');
+const {
+	allowInsecurePrototypeAccess
+} = require('@handlebars/allow-prototype-access');
 
 const indexRouter = require('./app/routes/index');
 const usersRouter = require('./app/routes/users');
@@ -19,6 +24,16 @@ connectDB();
 // view engine setup
 app.set('views', path.join(__dirname, './app/views'));
 app.set('view engine', 'hbs');
+app.engine(
+	'hbs',
+	exphbs({
+		handlebars: allowInsecurePrototypeAccess(Handlebars),
+		defaultLayout: 'main',
+		extname: '.hbs',
+		layoutsDir: __dirname + '/app/views/layouts/',
+		partialsDir: __dirname + '/app/views/partials/'
+	})
+);
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -51,7 +66,7 @@ app.use(function(err, req, res, next) {
 
 	// render the error page
 	res.status(err.status || 500);
-	res.render('error');
+	res.render('pages/error');
 });
 
 module.exports = app;
