@@ -11,7 +11,8 @@ exports.work_list = function(req, res) {
 
 // Display detail page for a specific work.
 exports.work_detail = function(req, res) {
-	res.send('NOT IMPLEMENTED: work detail: ' + req.params.id);
+	console.log(req.params);
+	res.send('NOT IMPLEMENTED: work detail: ' + req.params.workID);
 };
 
 // Display work create form on GET.

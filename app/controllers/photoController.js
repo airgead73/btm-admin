@@ -2,12 +2,16 @@ const Photo = require('../models/Photo');
 
 // Display list of all photos.
 exports.photo_list = function(req, res) {
-	res.send('NOT IMPLEMENTED: photo list');
+	if (req.params.workID) {
+		res.send('NOT IMPLEMENTED: photo list (specific work)');
+	} else {
+		res.send('NOT IMPLEMENTED: photo list');
+	}
 };
 
 // Display detail page for a specific photo.
 exports.photo_detail = function(req, res) {
-	res.send('NOT IMPLEMENTED: photo detail: ' + req.params.id);
+	res.send('NOT IMPLEMENTED: photo detail: ' + req.params.photoID);
 };
 
 // Display photo create form on GET.
@@ -26,7 +30,7 @@ exports.photo_delete_get = function(req, res) {
 };
 
 // Handle photo delete on POST.
-exports.photo_delete_post = function(req, res) {
+exports.photo_delete_delete = function(req, res) {
 	res.send('NOT IMPLEMENTED: photo delete POST');
 };
 
@@ -36,6 +40,6 @@ exports.photo_update_get = function(req, res) {
 };
 
 // Handle photo update on POST.
-exports.photo_update_post = function(req, res) {
+exports.photo_update_put = function(req, res) {
 	res.send('NOT IMPLEMENTED: photo update POST');
 };
