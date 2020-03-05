@@ -8,6 +8,7 @@ const connectDB = require('./app/config/db');
 
 const indexRouter = require('./app/routes/index');
 const usersRouter = require('./app/routes/users');
+const galleryRouter = require('./app/routes/gallery');
 
 // @desc INITIALIZE APP
 const app = express();
@@ -33,6 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // @desc MOUNT ROUTES
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/gallery', galleryRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

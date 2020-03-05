@@ -8,10 +8,7 @@ const WorkSchema = new mongoose.Schema({
 		trim: true,
 		lowercase: true
 	},
-	slug: {
-		type: String,
-		lowercase: true
-	},
+	slug: String,
 	modality: {
 		type: String,
 		enum: ['sculpture', 'painting', 'drawing']
