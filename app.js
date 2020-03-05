@@ -24,6 +24,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// @ GLOBAL VARIABLES
+// app.use(function(req, res, next) {
+// 	res.locals.img = req.locals.img || null;
+// 	next();
+// });
+
+// @desc MOUNT ROUTES
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 

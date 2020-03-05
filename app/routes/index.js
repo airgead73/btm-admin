@@ -1,4 +1,5 @@
 const express = require('express');
+const pathMod = require('path');
 const router = express.Router();
 const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
@@ -15,12 +16,16 @@ const storage = multer.diskStorage({
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	res.render('index', { title: 'Express' });
+	res.render('index', {
+		title: 'BTM ADMIN'
+	});
 });
 
 router.post('/upload', (req, res, next) => {
 	const upload = multer({ storage }).single('name-of-input-key');
+
 	upload(req, res, function(err) {
+		console.log('req ', req.body);
 		if (err) {
 			return res.send(err);
 		}
@@ -35,11 +40,15 @@ router.post('/upload', (req, res, next) => {
 			api_secret: process.env.API_SECRET
 		});
 		const path = req.file.path;
-		const uniqueFilename = new Date().toISOString();
+		//const uniqueFilename = new Date().toISOString();
 
 		cloudinary.uploader.upload(
 			path,
-			{ public_id: `htest/${uniqueFilename}`, tags: `blog` }, // directory and tags are optional
+			{
+				//public_id: `${shortenedfilename}-${uniqueFilename}`,
+				//folder: 'btm',
+				tags: ['art', 'scuplture', 'bronze']
+			}, // directory and tags are optional
 			function(err, image) {
 				if (err) return res.send(err);
 				console.log('file uploaded to Cloudinary');
