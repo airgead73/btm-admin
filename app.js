@@ -11,8 +11,6 @@ const usersRouter = require('./app/routes/users');
 
 // @desc INITIALIZE APP
 const app = express();
-dotenv.config({ path: 'app/config/config.env' });
-connectDB();
 
 // view engine setup
 app.set('views', path.join(__dirname, './app/views'));
