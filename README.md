@@ -1,6 +1,6 @@
 # BTM ADMIN
 
-**branch: v1**
+**branch: v2**
 ###technologies
 
 - node
@@ -12,4 +12,4 @@
 
 **this branch**
 
-- added cloudinary functionality.
+- set up routes and controllers.
