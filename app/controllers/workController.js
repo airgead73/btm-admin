@@ -5,8 +5,16 @@ exports.index = function(req, res) {
 };
 
 // Display list of all works.
-exports.work_list = function(req, res) {
-	res.send('NOT IMPLEMENTED: work list');
+exports.work_list = async function(req, res, next) {
+	try {
+		res.render('pages/works/index', {
+			title: 'works'
+		});
+	} catch (err) {
+		res.render('pages/error', {
+			error: err
+		});
+	}
 };
 
 // Display detail page for a specific work.
@@ -17,7 +25,15 @@ exports.work_detail = function(req, res) {
 
 // Display work create form on GET.
 exports.work_create_get = function(req, res) {
-	res.send('NOT IMPLEMENTED: work create GET');
+	try {
+		res.render('pages/works/add', {
+			title: 'add work'
+		});
+	} catch (err) {
+		res.render('pages/error', {
+			error: err
+		});
+	}
 };
 
 // Handle work create on POST.

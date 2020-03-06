@@ -8,4 +8,11 @@ router.get('/', function(req, res, next) {
 	});
 });
 
+router.get('/login', function(req, res, next) {
+	res.render('pages/login', {
+		title: 'btm admin',
+		layout: 'login'
+	});
+});
+
 module.exports = router;
