@@ -2,9 +2,28 @@
 <html>
   <head>
     <title>{{title}}</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Materialize JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Custome CSS -->
+    <link rel='stylesheet' href='./stylesheets/style.css' />
+    
   </head>
   <body>
-    {{{body}}}
+    <header>
+      {{> _navbar}}
+    </header>
+    <main>
+      {{{body}}}
+    </main>    
+      {{> _footer}}
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="./javascripts/materialize.js"></script>
+  <script src="./javascripts/init.js"></script>
+  <script src="./javascripts/script.js"></script>   
   </body>
 </html>
