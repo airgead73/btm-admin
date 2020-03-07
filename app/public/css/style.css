@@ -19,3 +19,14 @@ form > input {
 legend {
   margin-bottom: 15px;
 }
+
+.alert {
+  border: 1px dotted;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+.alert-success {
+  color: green;
+  border-color: green;
+}

@@ -6,8 +6,10 @@
   <div>
     {{> _navbar}}
     <hr>
-    <main></main>
-    {{{body}}}
+    {{> _msg}}
+    {{> _err}}
+    <main>
+      {{{body}}}
     </main>
   </div>
   {{> _footer}}

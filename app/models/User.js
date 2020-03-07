@@ -2,21 +2,21 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
 const UserSchema = new mongoose.Schema({
-	last_name: {
+	lname: {
 		type: String,
-		required: [true, 'Add last name'],
+		required: [true, 'Add first name.'],
 		trim: true,
 		lowercase: true
 	},
-	first_name: {
+	fname: {
 		type: String,
-		required: [true, 'Add last name'],
+		required: [true, 'Add last name.'],
 		trim: true,
 		lowercase: true
 	},
 	email: {
 		type: String,
-		required: [true, 'Provide an email'],
+		required: [true, 'Provide an email.'],
 		unique: true,
 		trim: true,
 		match: [
@@ -26,7 +26,7 @@ const UserSchema = new mongoose.Schema({
 	},
 	password: {
 		type: String,
-		required: [true, 'Provide a password'],
+		required: [true, 'Provide a password.'],
 		trim: true
 	},
 	slug: String,
@@ -37,15 +37,15 @@ const UserSchema = new mongoose.Schema({
 });
 
 // Create user slug from last name and first name
-UserSchema.pre('save', function(next) {
-	let newSlug = `${this.last_name}-${this.first_name}`;
+UserSchema.pre('save', function (next) {
+	let newSlug = `${this.lname}-${this.fname}`;
 	newSlug = newSlug.toLocaleLowerCase();
 	this.slug = newSlug;
 	next();
 });
 
 // Middleware: Encrypt pwd using bcrypt
-UserSchema.pre('save', async function(next) {
+UserSchema.pre('save', async function (next) {
 	const salt = await bcrypt.genSalt(10);
 	this.password = await bcrypt.hash(this.password, salt);
 });

@@ -6,6 +6,9 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const connectDB = require('./app/config/db');
 const Handlebars = require('handlebars');
+const flash = require('connect-flash');
+const helmet = require('helmet');
+const session = require('express-session');
 const exphbs = require('express-handlebars');
 const {
 	allowInsecurePrototypeAccess
@@ -35,17 +38,33 @@ app.engine(
 	})
 );
 
+// @desc EXPRESS MIDDLEWARE
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(__dirname + '/app/public'));
+app.use(session({
+	secret: 'gheritnga',
+	resave: true,
+	saveUninitialized: true
+}))
 
-// @ GLOBAL VARIABLES
-// app.use(function(req, res, next) {
-// 	res.locals.img = req.locals.img || null;
-// 	next();
-// });
+
+
+// @desc MESSAGING
+app.use(flash());
+
+// @desc GLOBAL VARIABLES
+app.use(function (req, res, next) {
+	res.locals.success_msg = req.flash('success_msg');
+	res.locals.error_msg = req.flash('error_msg');
+	next();
+});
+
+// @desc SECURITY
+app.use(helmet());
 
 // @desc MOUNT ROUTES
 app.use('/', indexRouter);
@@ -54,12 +73,12 @@ app.use('/works', worksRouter);
 app.use('/photos', photosRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
 	next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
 	// set locals, only providing error in development
 	res.locals.message = err.message;
 	res.locals.error = req.app.get('env') === 'development' ? err : {};
