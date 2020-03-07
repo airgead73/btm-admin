@@ -1,6 +1,8 @@
 const User = require('../models/User');
 exports.user_create_get = async function (req, res, next) {
-  res.send("GET display register form");
+  res.render('pages/users/register', {
+    title: 'register'
+  });
 }
 
 exports.user_create_post = async function (req, res, next) {
@@ -9,8 +11,7 @@ exports.user_create_post = async function (req, res, next) {
 
 exports.user_login_get = async function (req, res, next) {
   res.render('pages/users/login', {
-    layout: 'login',
-    title: 'btm admin'
+    title: 'login'
   });
 }
 
@@ -19,6 +20,6 @@ exports.user_login_post = async function (req, res, next) {
 }
 
 exports.user_logout_get = async function (req, res, next) {
-  res.send("GET user logout");
+  res.redirect('/users/login');
 }
 

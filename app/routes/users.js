@@ -6,7 +6,7 @@ const user_controller = require('../controllers/userController');
 // @desc display form: user_create
 // @route GET /users/create
 // @access private
-
+router.get('/register', user_controller.user_create_get);
 
 // POST request for creating user
 // @desc process form: user_create
@@ -24,6 +24,6 @@ router.get('/login', user_controller.user_login_get);
 // @desc process form: user_login
 // @route POST /user/login
 // @access private
-
+router.get('/logout', user_controller.user_logout_get);
 
 module.exports = router;
