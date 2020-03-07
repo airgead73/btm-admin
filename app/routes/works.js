@@ -13,19 +13,19 @@ router.use('/:workID/photos', photos);
 
 // GET request for creating work
 // @desc display form: work_create
-// @route GET gallery/work/create
+// @route GET /work/create
 // @access private
 router.get('/create', work_controller.work_create_get);
 
 // POST for creating work
 // @desc process form: work_create
-// @route POST gallery/work/create
+// @route POST /work/create
 // @access private
 router.post('/create', work_controller.work_create_post);
 
 // GET request for update book
 // @desc display form: work_update | use method overide to process POST as PUT
-// @route GET gallery/work/:workID/update
+// @route GET /work/:workID/update
 // @access private
 router.get('/:workID/update', work_controller.work_update_get);
 

@@ -8,7 +8,10 @@ exports.user_create_post = async function (req, res, next) {
 }
 
 exports.user_login_get = async function (req, res, next) {
-  res.send("GET display login form");
+  res.render('pages/users/login', {
+    layout: 'login',
+    title: 'btm admin'
+  });
 }
 
 exports.user_login_post = async function (req, res, next) {
