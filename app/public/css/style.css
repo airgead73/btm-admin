@@ -8,6 +8,10 @@ nav {
   padding-top: 15px;
 }
 
+hr {
+  margin-bottom: 25px;
+}
+
 form > input {
   margin-bottom: 10px;
 }

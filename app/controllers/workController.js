@@ -16,7 +16,7 @@ exports.work_list = async function (req, res, next) {
 // Display detail page for a specific work.
 exports.work_detail = function (req, res) {
 	try {
-		res.render('pages/works/index', {
+		res.render('pages/works/detail', {
 			title: req.params.workID
 		});
 	} catch (err) {
@@ -41,7 +41,8 @@ exports.work_create_get = function (req, res) {
 
 // Handle work create on POST.
 exports.work_create_post = function (req, res) {
-	res.send('NOT IMPLEMENTED: work create POST');
+	console.log(req.body);
+	res.redirect('/works')
 };
 
 // Display work delete form on GET.

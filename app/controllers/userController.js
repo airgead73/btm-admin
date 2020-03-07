@@ -6,7 +6,8 @@ exports.user_create_get = async function (req, res, next) {
 }
 
 exports.user_create_post = async function (req, res, next) {
-  res.send("POST process register form");
+  console.log(req.body);
+  res.redirect('/users/login');
 }
 
 exports.user_login_get = async function (req, res, next) {
@@ -16,7 +17,8 @@ exports.user_login_get = async function (req, res, next) {
 }
 
 exports.user_login_post = async function (req, res, next) {
-  res.send("POST process login form");
+  console.log(req.body);
+  res.redirect('/works');
 }
 
 exports.user_logout_get = async function (req, res, next) {

@@ -51,7 +51,7 @@ router.delete('/:workID/delete', work_controller.work_delete_delete);
 // @desc display one work
 // @route GET gallery/work/:workID
 // @access private
-router.get('/:workID', work_controller.work_detail);
+router.get('/:workID/detail', work_controller.work_detail);
 
 // GET request for all works
 // @desc display one work

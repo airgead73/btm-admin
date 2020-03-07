@@ -21,7 +21,7 @@ exports.photo_list = function (req, res) {
 // Display detail page for a specific photo.
 exports.photo_detail = function (req, res) {
 	try {
-		res.render('pages/photos/index', {
+		res.render('pages/photos/detail', {
 			title: req.params.photoID
 		});
 	} catch (err) {
@@ -63,7 +63,7 @@ exports.photo_delete_delete = function (req, res) {
 exports.photo_update_get = function (req, res) {
 	exports.work_detail = function (req, res) {
 		try {
-			res.render('pages/works/index', {
+			res.render('pages/photos/index', {
 				title: `update ${req.params.workID}`
 			});
 		} catch (err) {

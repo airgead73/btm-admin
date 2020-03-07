@@ -45,7 +45,7 @@ router.delete('/:photoID/delete', photo_controller.photo_delete_delete);
 // @desc display one photo
 // @route GET gallery/photo/:photoID
 // @access private
-router.get('/:photoID', photo_controller.photo_detail);
+router.get('/:photoID/detail', photo_controller.photo_detail);
 
 // GET request for all photos
 // @desc display one photo
