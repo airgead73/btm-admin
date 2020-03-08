@@ -1,3 +1,5 @@
+const User = require('../models/User');
+
 module.exports = {
   finalCatch: async (err, req, res, next) => {
     // set locals, only providing error in development
@@ -39,5 +41,67 @@ module.exports = {
       messages,
       goBackTo
     });
+  },
+  validateRegistration: async (body) => {
+    let errors = [];
+    const {
+      fname,
+      lname,
+      email,
+      password,
+      confirmPassword
+    } = body;
+    const emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    const isEmail = email.match(emailFormat);
+    const scriptString = '<script';
+
+    const user = await User.findOne({ email: email });
+
+    // Check if user is already registered.
+
+    if (user) {
+      errors.push({ text: 'Email already registered' });
+    }
+
+    if (
+      fname.includes(scriptString) ||
+      lname.includes(scriptString) ||
+      email.includes(scriptString) ||
+      password.includes(scriptString) ||
+      confirmPassword.includes(scriptString)
+    ) {
+      errors.push({ text: 'Unauthorized html entity' });
+    }
+
+    // NAME
+
+    if (!fname.length || !lname.length) {
+      errors.push({ text: 'First and last name must be provided' });
+    }
+
+    // EMAIL
+
+    if (!email.length || !isEmail) {
+      errors.push({ text: 'Properly formatted email must be provided' });
+    }
+
+    // PASSWORD
+
+    if (password != confirmPassword) {
+      errors.push({ text: 'Passwords do not match' });
+    }
+
+    if (password.length < 8 || password.length > 16) {
+      errors.push({ text: 'Passwords must be between 4 and 16 characters' });
+    }
+
+    if (!errors.length) {
+      errors = null;
+    }
+
+    return errors;
+  },
+  validateLogin: async (body) => {
+
   }
 }

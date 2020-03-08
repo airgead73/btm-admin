@@ -1,60 +1,59 @@
+const asyncHandler = require('../middleware/async');
+const { validateRegistration } = require('../middleware/errors');
 const User = require('../models/User');
-const asyncHandler = require('../middleware/async')
-exports.user_create_get = async function (req, res, next) {
+const passport = require('passport');
+
+exports.user_create_get = asyncHandler(async function (req, res, next) {
   res.render('pages/users/register', {
     title: 'register'
   });
-}
+})
 
 exports.user_create_post = asyncHandler(async function (req, res, next) {
-  const { fname, lname, email, password } = req.body;
-  //try {
-  // create user
+  const errors = await validateRegistration(req.body);
+  const { fname, lname, email, password, confirmPassword } = req.body;
+
+  if (errors) {
+    console.log(errors)
+    return res.status(400).render('pages/users/register', {
+      errors: errors,
+      fname: fname,
+      lname: lname,
+      email: email,
+      password: password,
+      confirmPassword: confirmPassword
+    })
+  }
+
   user = await User.create({
-    fname,
-    lname,
-    email,
-    password
+    fname: encodeURI(fname),
+    lname: encodeURI(lname),
+    email: email,
+    password: password
   });
 
-  req.flash('success_msg', 'You are now registered')
-  res.redirect('/users/login');
-  // } catch (err) {
-
-  //   let messages = [];
-
-  //   if (err.name === 'ValidationError') {
-  //     Object.values(err.errors).forEach(item => {
-  //       messages.push(item.message);
-  //     });
-
-  //     req.flash('error_msg', message);
-  //     res.redirect('/users/login');
-  //   } else if (err.code === 11000) {
-  //     req.flash('error_msg', 'Dublicate field value entered')
-  //   } else {
-  //     console.log(err);
-  //     res.status(err.status || 500);
-  //     res.render('pages/error');
-  //   }
-  //}
-
-
+  req.flash('success_msg', 'You are now registered');
+  res.status(201).redirect('/users/login');
 
 });
 
-exports.user_login_get = async function (req, res, next) {
+exports.user_login_get = asyncHandler(async function (req, res, next) {
   res.render('pages/users/login', {
     title: 'login'
   });
-}
+})
 
-exports.user_login_post = async function (req, res, next) {
-  console.log(req.body);
-  res.redirect('/works');
-}
+exports.user_login_post = asyncHandler(async function (req, res, next) {
+  passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/users/login',
+    failureFlash: true
+  })(req, res, next);
+});
 
-exports.user_logout_get = async function (req, res, next) {
+exports.user_logout_get = asyncHandler(async function (req, res, next) {
+  req.logout();
+  req.flash('success_msg', 'You are logged out');
   res.redirect('/users/login');
-}
+});
 

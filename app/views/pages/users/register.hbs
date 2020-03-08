@@ -1,19 +1,19 @@
 <form action="/users/register" method="POST">
   <legend>register</legend>
   <label for="fname">first name</label>
-  <input name="fname" type="text">
+  <input name="fname" type="text" value="{{fname}}">
   <br>
   <label for="lname">last name</label>
-  <input name="lname" type="text">
+  <input name="lname" type="text" value="{{lname}}">
   <br>
   <label for="email">email</label>
-  <input name="email" type="email">
+  <input name="email" type="email" value="{{email}}">
   <br>
   <label for="password">password</label>
-  <input name="password" type="password">
+  <input name="password" type="password" value="{{password}}">
   <br>
   <label for="confirmPassword"> confirm password</label>
-  <input name="confirmPassword" type="password">
+  <input name="confirmPassword" type="password" value="{{confirmPassword}}">
   <br>
   <input type="submit" value="submit">
 </form>

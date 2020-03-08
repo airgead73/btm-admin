@@ -30,3 +30,8 @@ legend {
   color: green;
   border-color: green;
 }
+
+.alert-danger {
+  color: indianred;
+  border-color: indianred;
+}

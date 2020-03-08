@@ -8,7 +8,9 @@ const connectDB = require('./app/config/db');
 const Handlebars = require('handlebars');
 const flash = require('connect-flash');
 const helmet = require('helmet');
+const passport = require('passport');
 const session = require('express-session');
+const sessionConfig = require('./app/config/session');
 const exphbs = require('express-handlebars');
 const { finalCatch } = require('./app/middleware/errors');
 const {
@@ -47,12 +49,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(__dirname + '/app/public'));
 app.use(session({
-	secret: 'gheritnga',
-	resave: true,
-	saveUninitialized: true
-}))
+	secret: process.env.SESSION_SECRET,
+	resave: false,
+	saveUninitialized: true,
+	cookie: {}
+}));
 
-
+// @desc PASSPORT MIDDLEWARE
+app.use(passport.initialize());
+app.use(passport.session());
+require('./app/config/passport')(passport);
 
 // @desc MESSAGING
 app.use(flash());
@@ -61,6 +67,7 @@ app.use(flash());
 app.use(function (req, res, next) {
 	res.locals.success_msg = req.flash('success_msg');
 	res.locals.error_msg = req.flash('error_msg');
+	res.locals.user = req.user || null;
 	next();
 });
 

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const user_controller = require('../controllers/userController');
 
+
 // GET request for creating user
 // @desc display form: user_create
 // @route GET /users/create
