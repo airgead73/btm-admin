@@ -8,6 +8,7 @@ const connectDB = require('./app/config/db');
 const Handlebars = require('handlebars');
 const flash = require('connect-flash');
 const helmet = require('helmet');
+const methodOverride = require('method-override');
 const passport = require('passport');
 const session = require('express-session');
 const sessionConfig = require('./app/config/session');
@@ -44,6 +45,7 @@ app.engine(
 // @desc EXPRESS MIDDLEWARE
 
 app.use(logger('dev'));
+app.use(methodOverride('_method'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());

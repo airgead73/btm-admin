@@ -1,1 +1,42 @@
-<h1>list works</h1>
+<h2>WORKS</h2>
+
+{{#if data}}
+<table>
+  <thead>
+    <th>title</th>
+    <th>description</th>
+    <th>modality</th>
+    <th>material</th>
+    <th>category</th>
+    <th>detail</th>
+    <th>delete</th>
+  </thead>
+  <tbody>
+
+    {{#each data}}
+    <tr>
+      <td>{{this.title}}</td>
+      <td>{{this.desc}}</td>
+      <td>{{this.modality}}</td>
+      <td>{{this.material}}</td>
+      <td>{{this.category}}</td>
+      <td><a href="/works/{{this._id}}/detail">view detail</a></td>
+      <td>
+        <form action="/works/{{this._id}}/delete?_method=DELETE" method="POST">
+          <input type="hidden" name="_method" id="hidden_delete" value="DELETE">
+          <input type="submit" name="submit" id="delete_work" value="delete">
+        </form>
+      </td>
+    </tr>
+
+    {{/each}}
+
+
+  </tbody>
+</table>
+
+{{else}}
+
+<p>no works</p>
+
+{{/if}}

@@ -2,20 +2,27 @@ const mongoose = require('mongoose');
 const slugify = require('slugify');
 
 const WorkSchema = new mongoose.Schema({
-	name: {
+	title: {
 		type: String,
 		required: [true, 'Add name'],
+		trim: true
+	},
+	desc: {
+		type: String,
 		trim: true,
-		lowercase: true
 	},
 	slug: String,
 	modality: {
 		type: String,
 		enum: ['sculpture', 'painting', 'drawing']
 	},
-	medium: {
+	material: {
 		type: String,
-		enum: ['bronze', 'iron', 'clay', 'oil and canvas', 'pencil']
+		enum: ['bronze', 'iron', 'marble', 'clay', 'alabaster', 'oil and canvas', 'pencil']
+	},
+	category: {
+		type: String,
+		enum: ['figure', 'portrait', 'landscape', 'still life', 'wildlife', 'abstract']
 	},
 	createdAt: {
 		type: Date,
@@ -24,8 +31,8 @@ const WorkSchema = new mongoose.Schema({
 });
 
 // Create work slug from name
-WorkSchema.pre('save', function(next) {
-	this.slug = slugify(this.name, { lower: true });
+WorkSchema.pre('save', function (next) {
+	this.slug = slugify(this.title, { lower: true });
 	next();
 });
 
