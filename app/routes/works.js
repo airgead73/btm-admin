@@ -1,10 +1,13 @@
 const express = require('express');
 const work_controller = require('../controllers/workController');
+const { ensureAuthenticated } = require('../middleware/auth');
 
 // Include other resource routers
 const photos = require('./photos');
 
 const router = express.Router();
+
+router.use(ensureAuthenticated);
 
 // Reroute into other resource routers
 router.use('/:workID/photos', photos);

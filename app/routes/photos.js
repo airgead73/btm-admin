@@ -1,7 +1,10 @@
 const express = require('express');
 const router = express.Router({ mergeParams: true });
+const { ensureAuthenticated } = require('../middleware/auth');
 
 const photo_controller = require('../controllers/photoController');
+
+router.use(ensureAuthenticated);
 
 /// PHOTO ROUTES ///
 
