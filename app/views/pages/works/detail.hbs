@@ -1,1 +1,9 @@
-<h1>work detail: {{title}}</h1>
+<h1>{{title}}</h1>
+<p><a href="/works/{{data._id}}/update">update</a> | <a href="/works/{{data._id}}/photos/upload">add photo</a></p>
+<hr>
+<ul>
+  <li>{{data.modality}}</li>
+  <li>{{data.material}}</li>
+  <li>{{data.category}}</li>
+  <li>{{data.desc}}</li>
+</ul>

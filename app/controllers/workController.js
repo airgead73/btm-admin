@@ -1,17 +1,21 @@
 const Work = require('../models/Work');
 const asyncHandler = require('../middleware/async');
-const { validateRegistration } = require('../middleware/errors');
 
 // Display list of all works.
 exports.work_list = asyncHandler(async function (req, res, next) {
 	const works = await Work.find().sort('-createdAt');
+	const count = {};
+	count.all = works.length;
+	count.sculpture = works.filter(work => work.modality === 'sculpture').length
+	count.painting = works.filter(work => work.modality === 'painting').length
+	count.drawing = works.filter(work => work.modality === 'drawing').length
 	console.log(works);
-	req.flash('success_msg', 'works found');
+	//req.flash('success_msg', 'works found');
 	res.render('pages/works/index', {
 		success: true,
 		title: 'works',
-		success_msg: res.locals.sucess_msg,
-		count: works.length,
+		//success_msg: res.locals.sucess_msg,
+		count: count,
 		data: works
 	});
 
@@ -19,8 +23,10 @@ exports.work_list = asyncHandler(async function (req, res, next) {
 
 // Display detail page for a specific work.
 exports.work_detail = asyncHandler(async function (req, res) {
+	const work = await Work.findById(req.params.workID);
 	res.render('pages/works/detail', {
-		title: req.params.workID
+		title: work.title,
+		data: work
 	});
 });
 
@@ -58,10 +64,20 @@ exports.work_delete_delete = asyncHandler(async function (req, res) {
 
 // Display work update form on GET.
 exports.work_update_get = asyncHandler(async function (req, res) {
+	const work = await Work.findById(req.params.workID);
+	res.render('pages/works/update', {
+		title: `update ${work.title}`,
+		data: work
+	})
 
 });
 
 // Handle work update on PUT.
 exports.work_update_put = asyncHandler(async function (req, res) {
-	res.send('NOT IMPLEMENTED: work update PUT');
+	const work = await Work.findByIdAndUpdate(req.params.workID, req.body, {
+		new: true,
+		runValidators: true
+	});
+	req.flash('success_msg', `"${req.body.title}" updated`);
+	res.redirect('/works');
 });

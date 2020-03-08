@@ -1,16 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const asyncHandler = require('../middleware/async');
-const { ensureAuthenticated } = require('../middleware/auth');
+const { checkInitial } = require('../middleware/auth');
 
-const indexController = asyncHandler(async function (req, res, next) {
-	res.redirect('/works')
-});
+const indexController = require('../controllers/indexController');
+
 
 // GET request for home page
 // @desc redirect to works if authenticated
 // @route GET /
 // @access private
-router.get('/', ensureAuthenticated, indexController);
+router.get('/', checkInitial, indexController.home_get);
 
 module.exports = router;

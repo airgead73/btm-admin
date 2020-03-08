@@ -45,7 +45,7 @@ exports.user_login_get = asyncHandler(async function (req, res, next) {
 
 exports.user_login_post = asyncHandler(async function (req, res, next) {
   passport.authenticate('local', {
-    successRedirect: '/',
+    successRedirect: '/works',
     failureRedirect: '/users/login',
     failureFlash: true
   })(req, res, next);

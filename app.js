@@ -28,6 +28,14 @@ const app = express();
 dotenv.config({ path: 'app/config/config.env' });
 connectDB();
 
+// @desc HBS HELPERS
+const {
+	truncate,
+	stripTags,
+	formatDate,
+	select
+} = require('./app/helpers/hbs');
+
 // view engine setup
 app.set('views', path.join(__dirname, './app/views'));
 app.set('view engine', 'hbs');
@@ -35,6 +43,12 @@ app.engine(
 	'hbs',
 	exphbs({
 		handlebars: allowInsecurePrototypeAccess(Handlebars),
+		helpers: {
+			truncate: truncate,
+			stripTags: stripTags,
+			formatDate: formatDate,
+			select: select
+		},
 		defaultLayout: 'main',
 		extname: '.hbs',
 		layoutsDir: __dirname + '/app/views/layouts/',
@@ -72,6 +86,8 @@ app.use(function (req, res, next) {
 	res.locals.user = req.user || null;
 	next();
 });
+
+
 
 // @desc SECURITY
 app.use(helmet());
