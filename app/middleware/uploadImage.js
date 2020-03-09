@@ -1,24 +1,24 @@
 const multer = require('multer');
 
 uploadImage = function (req, res, next) {
-  var storage = multer.diskStorage({
+  const storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, 'uploads/')
     },
     filename: function (req, file, callback) {
-      callback(null, Date.now() + file.originalname);
+      callback(null, 'temp');
     }
   });
-  var imageFilter = function (req, file, cb) {
+  const imageFilter = function (req, file, cb) {
     // accept image files only
     if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
       return cb(new Error('Only image files are allowed!'), false);
     }
     cb(null, true);
   };
-  var upload = multer({ storage: storage, fileFilter: imageFilter }).single('image')
+  upload = multer({ storage: storage, fileFilter: imageFilter }).single('image')
 
-  var cloudinary = require('cloudinary');
+  const cloudinary = require('cloudinary');
   cloudinary.config({
     cloud_name: 'learntocodeinfo',
     api_key: process.env.CLOUDINARY_API_KEY,

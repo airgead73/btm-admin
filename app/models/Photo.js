@@ -2,9 +2,19 @@ const mongoose = require('mongoose');
 const slugify = require('slugify');
 
 const PhotoSchema = new mongoose.Schema({
-	name: {
+	title: {
 		type: String,
-		required: [true, 'Add name'],
+		required: [true, 'Add title'],
+		trim: true
+	},
+	caption: {
+		type: String,
+		required: [true, 'Add caption'],
+		trim: true
+	},
+	url: {
+		type: String,
+		required: [true, 'Add url'],
 		trim: true
 	},
 	work: {
@@ -23,13 +33,13 @@ const PhotoSchema = new mongoose.Schema({
 });
 
 // Create photo slug from name
-PhotoSchema.pre('save', function(next) {
-	this.slug = slugify(this.name, { lower: true });
+PhotoSchema.pre('save', function (next) {
+	this.slug = slugify(this.title, { lower: true });
 	next();
 });
 
 // Set photo orientation
-PhotoSchema.pre('save', function(next) {
+PhotoSchema.pre('save', function (next) {
 	if (this.height === this.width) {
 		this.orientation = 'square';
 	} else if (this.height > this.width) {

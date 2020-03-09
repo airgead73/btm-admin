@@ -1,4 +1,5 @@
 const Photo = require('../models/Photo');
+const Work = require('../models/Work');
 const asyncHandler = require('../middleware/async');
 
 
@@ -72,53 +73,74 @@ exports.photo_update_put = asyncHandler(function (req, res, next) {
 });
 
 // GET upload form
-exports.photo_upload_get = asyncHandler(function (req, res, next) {
-	const work = req.params.workID;
+exports.photo_upload_get = asyncHandler(async function (req, res, next) {
+	const work = await Work.findById(req.params.workID);
 	res.render('pages/photos/upload', {
-		work: work
+		work_id: work._id,
+		work_title: work.slug
 	});
 
 });
 
 // GET upload form
-exports.photo_upload_post = asyncHandler(function (req, res, next) {
+exports.photo_upload_post = asyncHandler(async function (req, res, next) {
 	const file = res.locals.upload_file;
 	const body = res.locals.upload_body;
 	let newResult = {};
 	console.log("file: ", file);
 	console.log("body", body);
 
-	const cloudinary = require('cloudinary');
+	const cloudinary = require('cloudinary').v2;
 
 	cloudinary.config({
 		cloud_name: process.env.CLOUD_NAME,
 		api_key: process.env.API_KEY,
 		api_secret: process.env.API_SECRET
-	});
+	})
 
+	const cloud_name = Date.now()
 
-
-	cloudinary.uploader.upload(
+	const image = await cloudinary.uploader.upload(
 		file.path,
-		{ public_id: `blog/img-${body.work}`, tags: `blog` }, // directory and tags are optional
+		{ public_id: `btm/${body.work_title}/img-${cloud_name}`, tags: `blog` }, // directory and tags are optional
 		function (err, image) {
-			console.log("cloudinary working")
 			if (err) return res.send(err);
 			console.log('file uploaded to Cloudinary');
 			// remove file from server
 			const fs = require('fs');
-			fs.unlinkSync(path);
+			fs.unlinkSync(file.path);
 			// return image details
-			newResult = image;
-			console.log(image)
-
+			return image;
 		}
 	);
 
-	res.json(newResult)
+	const photoObj = {
+		title: req.body.title,
+		caption: req.body.caption,
+		url: image.secure_url,
+		work: body.work_id,
+		width: image.width,
+		height: image.height
+	};
 
+	console.log(photoObj);
 
+	photo = await Photo.create(photoObj);
 
+	res.status(200).json({
+		success: true,
+		data: photo
+	});
 
+	// res.json({
+	// 	title: req.body.title,
+	// 	caption: req.body.caption,
+	// 	public: image.public_id,
+	// 	width: image.width,
+	// 	height: image.height,
+	// 	url: image.secure_url,
+	// 	work: body.work_id,
+	// 	work_title: body.work_title
+	// });
 
 });
