@@ -1,0 +1,26 @@
+<form action="/works/{{photo_work}}/photos/create" method="POST">
+  <legend>add {{photo_title}}</legend>
+  <label for="title">title</label>
+  <input name="title" type="text" value="{{photo_title}}">
+  <br>
+  <label for="caption">caption</label>
+  <input name="caption" type="text" value="{{photo_caption}}">
+  <br>
+  <label for="url">url</label>
+  <input name="url" type="text" value="{{photo_url}}">
+  <br>
+  <label for="work">caption</label>
+  <input name="work" type="text" value="{{photo_work}}">
+  <br>
+  <label for="width">caption</label>
+  <input name="width" type="number" value="{{photo_width}}">
+  <br>
+
+  <label for="height">caption</label>
+  <input name="height" type="number" value="{{photo_height}}">
+  <br>
+
+  <br>
+  <input type="submit" value="submit">
+</form>
+<img style="width: 150px; height: auto;" src="{{photo_url}}" alt="">

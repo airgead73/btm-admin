@@ -1,0 +1,18 @@
+<h1>
+  {{#if errorStatus}}
+  <span>{{errorStatus}} | </span>
+  {{/if}}
+  <span>{{error.stack}}</span>
+</h1>
+<ul>
+  {{#each messages}}
+  <li>{{this}}</li>
+
+  {{/each}}
+</ul>
+
+{{#if goBackTo}}
+
+<a href="{{goBackTo}}">go back</a>
+
+{{/if}}

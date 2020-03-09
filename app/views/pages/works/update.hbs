@@ -1,0 +1,43 @@
+<h1>{{title}}</h1>
+<form action="/works/{{data._id}}/update?_method=PUT" method="POST">
+  <input type="hidden" name="_method" id="hidden_put" value="PUT">
+  <legend>update</legend>
+  <label for="title">title</label>
+  <input name="title" type="text" value="{{data.title}}">
+  <br>
+  <label for="desc">description</label>
+  <textarea name="desc" id="desc" cols="30" rows="10">{{data.desc}}</textarea>
+  <br>
+  <select id="modality" name="modality">
+    {{#select data.modality}}
+    <option value="sculpture">sculpture</option>
+    <option value="painting">painting</option>
+    <option value="drawing">drawing</option>
+    {{/select}}
+  </select>
+  <br>
+  <select id="material" name="material">
+    {{#select data.material}}
+    <option value="bronze">bronze</option>
+    <option value="marble">marble</option>
+    <option value="plaster">plaster</option>
+    <option value="alabaster">alabaster</option>
+    <option value="clay">clay</option>
+    <option value="oil and canvas">oil and canvas</option>
+    <option value="pencil">pencil</option>
+    {{/select}}
+  </select>
+  <br>
+  <select id="category" name="category">
+    {{#select data.category}}
+    <option value="figure">figure</option>
+    <option value="abstract">abstract</option>
+    <option value="portrait">portrait</option>
+    <option value="still life">still life</option>
+    <option value="wildlife">wildlife</option>
+    <option value="landscape">landscape</option>
+    {{/select}}
+  </select>
+  <br>
+  <input type="submit" value="submit">
+</form>

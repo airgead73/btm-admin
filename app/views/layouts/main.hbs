@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+{{> _head}}
+
+<body>
+  <div>
+    {{#if user}}
+    {{> _navbar}}
+    <hr>
+    {{/if}}
+    {{> _msg}}
+    {{> _err}}
+    <main>
+      {{{body}}}
+    </main>
+  </div>
+  {{> _footer}}
+
+  {{> _scripts}}
+
+</body>
+
+</html>

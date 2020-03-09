@@ -1,0 +1,16 @@
+<h1>{{title}}</h1>
+<p><a href="/works/{{data._id}}/update">update</a> | <a href="/works/{{work._id}}/photos/create">add photo</a></p>
+<hr>
+<ul>
+  <li>{{work.modality}}</li>
+  <li>{{work.material}}</li>
+  <li>{{work.category}}</li>
+  <li>{{work.desc}}</li>
+</ul>
+
+<hr>
+
+
+{{#each photos}}
+<img class="work-detail" src="{{this.url}}" alt="{{this.title}}" title="{{this.title}}">
+{{/each}}
