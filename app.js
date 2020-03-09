@@ -10,6 +10,7 @@ const flash = require('connect-flash');
 const helmet = require('helmet');
 const methodOverride = require('method-override');
 const passport = require('passport');
+const morgan = require('morgan');
 const session = require('express-session');
 const sessionConfig = require('./app/config/session');
 const exphbs = require('express-handlebars');
@@ -31,6 +32,8 @@ const photosRouter = require('./app/routes/photos');
 
 // @desc INITIALIZE APP
 const app = express();
+dotenv.config({ path: 'app/config/config.env' });
+connectDB();
 
 // @desc SECURITY
 app.use(helmet());
@@ -119,6 +122,27 @@ app.use(function (req, res, next) {
 // error handler
 app.use(finalCatch);
 
+// @desc DEV LOGGING
+if (process.env.NODE_ENV === 'development') {
+	app.use(morgan('dev'));
+}
+
+//@desc SERVER
+const PORT = process.env.PORT || 5000;
+
+const server = app.listen(
+	PORT,
+	console.log(
+		`Server running in ${process.env.NODE_ENV} mode on port ${PORT}...`)
+);
+
+// Handle unhandled promis rejectsions
+process.on('unhandledRejection', (err, promise) => {
+	console.log(`Error: ${err.message}`.red);
+	// Close server and exit process
+	server.close(() => {
+		process.exit(1);
+	});
+});
 
 
-module.exports = app;
