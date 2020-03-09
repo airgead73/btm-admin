@@ -17,7 +17,7 @@ const xss = require('xss-clean');
 const rateLimit = require('express-rate-limit');
 const hpp = require('hpp');
 const cors = require('cors');
-const mongoSanitze = require('express-mongo-sanitize');
+const mongoSanitize = require('express-mongo-sanitize');
 const { finalCatch } = require('./app/middleware/errors');
 const {
 	allowInsecurePrototypeAccess
