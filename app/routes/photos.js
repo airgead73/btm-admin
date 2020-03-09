@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router({ mergeParams: true });
 const { ensureAuthenticated } = require('../middleware/auth');
+const uploadImage = require('../middleware/uploadImage');
 
 const photo_controller = require('../controllers/photoController');
 
@@ -60,7 +61,7 @@ router.get('/upload', photo_controller.photo_upload_get);
 // @desc display one photo
 // @route GET works/:workID/photo/:photoID
 // @access private
-router.post('/upload', photo_controller.photo_upload_post);
+router.post('/upload', uploadImage, photo_controller.photo_upload_post);
 
 // GET request for all photos
 // @desc display one photo

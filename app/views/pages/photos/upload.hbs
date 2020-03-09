@@ -1,6 +1,26 @@
-<form action="/works/{{work}}/photos/upload" enctype="multipart/form-data" method="POST">
+{{!-- <form action="/works/{{work}}/photos/upload" enctype="multipart/form-data" method="POST">
   <legend>upload photo file</legend>
   <label for="myfile">Select a file:</label>
   <input type="file" id="myfile" name="myfile">
   <input type="submit" value="upload">
+</form> --}}
+
+
+<form action="/works/{{work}}/photos/upload" method="POST" enctype="multipart/form-data">
+  <div class="form-group">
+    <input class="form-control" type="text" name="title" placeholder="title">
+  </div>
+  <div class="form-group">
+    <label for="image">Image</label>
+    <input type="file" id="image" name="image" accept="image/*" required>
+  </div>
+  <div class="form-group">
+    <input class="form-control" type="text" name="caption" placeholder="caption">
+  </div>
+  <div class="form-group">
+    <input class="form-control" type="text" name="work" value="{{work}}">
+  </div>
+  <div class="form-group">
+    <button class="btn btn-lg btn-primary btn-block">Submit!</button>
+  </div>
 </form>

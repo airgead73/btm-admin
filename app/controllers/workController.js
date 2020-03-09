@@ -9,7 +9,6 @@ exports.work_list = asyncHandler(async function (req, res, next) {
 	count.sculpture = works.filter(work => work.modality === 'sculpture').length
 	count.painting = works.filter(work => work.modality === 'painting').length
 	count.drawing = works.filter(work => work.modality === 'drawing').length
-	console.log(works);
 	//req.flash('success_msg', 'works found');
 	res.render('pages/works/index', {
 		success: true,

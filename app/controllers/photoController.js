@@ -1,6 +1,7 @@
 const Photo = require('../models/Photo');
 const asyncHandler = require('../middleware/async');
 
+
 // Display list of all photos.
 exports.photo_list = asyncHandler(function (req, res, next) {
 	try {
@@ -76,12 +77,48 @@ exports.photo_upload_get = asyncHandler(function (req, res, next) {
 	res.render('pages/photos/upload', {
 		work: work
 	});
+
 });
 
 // GET upload form
 exports.photo_upload_post = asyncHandler(function (req, res, next) {
-	const work = req.params.workID;
-	res.render('pages/photos/upload', {
-		work: work
+	const file = res.locals.upload_file;
+	const body = res.locals.upload_body;
+	let newResult = {};
+	console.log("file: ", file);
+	console.log("body", body);
+
+	const cloudinary = require('cloudinary');
+
+	cloudinary.config({
+		cloud_name: process.env.CLOUD_NAME,
+		api_key: process.env.API_KEY,
+		api_secret: process.env.API_SECRET
 	});
+
+
+
+	cloudinary.uploader.upload(
+		file.path,
+		{ public_id: `blog/img-${body.work}`, tags: `blog` }, // directory and tags are optional
+		function (err, image) {
+			console.log("cloudinary working")
+			if (err) return res.send(err);
+			console.log('file uploaded to Cloudinary');
+			// remove file from server
+			const fs = require('fs');
+			fs.unlinkSync(path);
+			// return image details
+			newResult = image;
+			console.log(image)
+
+		}
+	);
+
+	res.json(newResult)
+
+
+
+
+
 });
