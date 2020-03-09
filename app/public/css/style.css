@@ -70,3 +70,8 @@ tr:nth-child(even) {
 footer {
   text-align: center;
 }
+
+img.work-detail {
+  height: 200px;
+  width: auto;
+}

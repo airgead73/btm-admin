@@ -22,9 +22,9 @@ const PhotoSchema = new mongoose.Schema({
 		ref: 'Work',
 		required: true
 	},
-	slug: String,
 	height: Number,
 	width: Number,
+	slug: String,
 	orientation: String,
 	createdAt: {
 		type: Date,
@@ -38,15 +38,6 @@ PhotoSchema.pre('save', function (next) {
 	next();
 });
 
-// Set photo orientation
-PhotoSchema.pre('save', function (next) {
-	if (this.height === this.width) {
-		this.orientation = 'square';
-	} else if (this.height > this.width) {
-		this.orientation = 'portrait';
-	} else {
-		this.orienation = 'landscape';
-	}
-});
+
 
 module.exports = mongoose.model('Photo', PhotoSchema);

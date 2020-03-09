@@ -22,6 +22,7 @@ const indexRouter = require('./app/routes/index');
 const usersRouter = require('./app/routes/users');
 const worksRouter = require('./app/routes/works');
 const photosRouter = require('./app/routes/photos');
+const imagesRouter = require('./app/routes/images');
 
 // @desc INITIALIZE APP
 const app = express();
@@ -83,6 +84,7 @@ app.use(flash());
 app.use(function (req, res, next) {
 	res.locals.success_msg = req.flash('success_msg');
 	res.locals.error_msg = req.flash('error_msg');
+	res.locals.new_photo = req.flash('new_photo');
 	res.locals.user = req.user || null;
 	next();
 });
@@ -97,11 +99,12 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/works', worksRouter);
 app.use('/photos', photosRouter);
+app.use('/images', imagesRouter);
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
-	next(createError(404));
-});
+// app.use(function (req, res, next) {
+// 	next(createError(404));
+// });
 
 // error handler
 app.use(finalCatch);

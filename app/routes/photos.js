@@ -19,7 +19,7 @@ router.get('/create', photo_controller.photo_create_get);
 // @desc process form: photo_create
 // @route POST gallery/photo/create
 // @access private
-router.post('/create', photo_controller.photo_create_post);
+router.post('/create', uploadImage, photo_controller.photo_create_post);
 
 // GET request for update book
 // @desc display form: photo_update | use method overide to process POST as PUT
@@ -50,18 +50,6 @@ router.delete('/:photoID/delete', photo_controller.photo_delete_delete);
 // @route GET gallery/photo/:photoID
 // @access private
 router.get('/:photoID/detail', photo_controller.photo_detail);
-
-// GET request for one photo
-// @desc display one photo
-// @route GET works/:workID/photo/:photoID
-// @access private
-router.get('/upload', photo_controller.photo_upload_get);
-
-// GET request for one photo
-// @desc display one photo
-// @route GET works/:workID/photo/:photoID
-// @access private
-router.post('/upload', uploadImage, photo_controller.photo_upload_post);
 
 // GET request for all photos
 // @desc display one photo

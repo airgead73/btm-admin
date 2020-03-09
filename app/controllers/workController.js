@@ -1,9 +1,10 @@
 const Work = require('../models/Work');
+const Photo = require('../models/Photo');
 const asyncHandler = require('../middleware/async');
 
 // Display list of all works.
 exports.work_list = asyncHandler(async function (req, res, next) {
-	const works = await Work.find().sort('-createdAt');
+	const works = await Work.find().sort('title');
 	const count = {};
 	count.all = works.length;
 	count.sculpture = works.filter(work => work.modality === 'sculpture').length
@@ -23,9 +24,11 @@ exports.work_list = asyncHandler(async function (req, res, next) {
 // Display detail page for a specific work.
 exports.work_detail = asyncHandler(async function (req, res) {
 	const work = await Work.findById(req.params.workID);
+	const photos = await Photo.find({ work: `${req.params.workID}` });
 	res.render('pages/works/detail', {
 		title: work.title,
-		data: work
+		work: work,
+		photos: photos
 	});
 });
 

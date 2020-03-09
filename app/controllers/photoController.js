@@ -4,16 +4,12 @@ const asyncHandler = require('../middleware/async');
 
 
 // Display list of all photos.
-exports.photo_list = asyncHandler(function (req, res, next) {
-	try {
-		res.render('pages/photos/index', {
-			title: 'photos'
-		});
-	} catch (err) {
-		res.render('pages/error', {
-			error: err
-		});
-	}
+exports.photo_list = asyncHandler(async function (req, res, next) {
+	const photos = await Photo.find({ work: `${req.params.workID}` });
+	res.status(200).render('pages/works/', {
+		success: true,
+		photos: photos
+	})
 	// if (req.params.workID) {
 	// 	res.send('NOT IMPLEMENTED: photo list (specific work)');
 	// } else {
@@ -32,24 +28,6 @@ exports.photo_detail = asyncHandler(function (req, res, next) {
 			error: err
 		});
 	}
-});
-
-// Display photo create form on GET.
-exports.photo_create_get = asyncHandler(function (req, res, next) {
-	try {
-		res.render('pages/photos/add', {
-			title: 'add photo'
-		});
-	} catch (err) {
-		res.render('pages/error', {
-			error: err
-		});
-	}
-});
-
-// Handle photo create on POST.
-exports.photo_create_post = asyncHandler(function (req, res, next) {
-	res.send('NOT IMPLEMENTED: photo create POST');
 });
 
 // Display photo delete form on GET.
@@ -73,7 +51,7 @@ exports.photo_update_put = asyncHandler(function (req, res, next) {
 });
 
 // GET upload form
-exports.photo_upload_get = asyncHandler(async function (req, res, next) {
+exports.photo_create_get = asyncHandler(async function (req, res, next) {
 	const work = await Work.findById(req.params.workID);
 	res.render('pages/photos/upload', {
 		work_id: work._id,
@@ -83,15 +61,13 @@ exports.photo_upload_get = asyncHandler(async function (req, res, next) {
 });
 
 // GET upload form
-exports.photo_upload_post = asyncHandler(async function (req, res, next) {
+exports.photo_create_post = asyncHandler(async function (req, res, next) {
+	// file and body transferred from uploadImage middleware
 	const file = res.locals.upload_file;
 	const body = res.locals.upload_body;
-	let newResult = {};
-	console.log("file: ", file);
-	console.log("body", body);
+
 
 	const cloudinary = require('cloudinary').v2;
-
 	cloudinary.config({
 		cloud_name: process.env.CLOUD_NAME,
 		api_key: process.env.API_KEY,
@@ -102,7 +78,7 @@ exports.photo_upload_post = asyncHandler(async function (req, res, next) {
 
 	const image = await cloudinary.uploader.upload(
 		file.path,
-		{ public_id: `btm/${body.work_title}/img-${cloud_name}`, tags: `blog` }, // directory and tags are optional
+		{ public_id: `btm/${body.work_title}/${body.work_title}-${cloud_name}`, tags: `art` }, // directory and tags are optional
 		function (err, image) {
 			if (err) return res.send(err);
 			console.log('file uploaded to Cloudinary');
@@ -114,33 +90,33 @@ exports.photo_upload_post = asyncHandler(async function (req, res, next) {
 		}
 	);
 
+	const getOrientation = function (h, w) {
+		let height = parseInt(h);
+		let width = parseInt(w);
+		if (height === width) {
+			return "square"
+		} else if (height > width) {
+			return "portrait"
+		} else {
+			return "landscape"
+		}
+
+	}
+
 	const photoObj = {
 		title: req.body.title,
 		caption: req.body.caption,
 		url: image.secure_url,
 		work: body.work_id,
 		width: image.width,
-		height: image.height
+		height: image.height,
+		orientation: getOrientation(image.height, image.width)
 	};
 
 	console.log(photoObj);
 
 	photo = await Photo.create(photoObj);
 
-	res.status(200).json({
-		success: true,
-		data: photo
-	});
-
-	// res.json({
-	// 	title: req.body.title,
-	// 	caption: req.body.caption,
-	// 	public: image.public_id,
-	// 	width: image.width,
-	// 	height: image.height,
-	// 	url: image.secure_url,
-	// 	work: body.work_id,
-	// 	work_title: body.work_title
-	// });
+	res.status(200).redirect(`/works/${photoObj.work}/detail`)
 
 });
