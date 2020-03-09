@@ -13,6 +13,11 @@ const passport = require('passport');
 const session = require('express-session');
 const sessionConfig = require('./app/config/session');
 const exphbs = require('express-handlebars');
+const xss = require('xss-clean');
+const rateLimit = require('express-rate-limit');
+const hpp = require('hpp');
+const cors = require('cors');
+const mongoSanitze = require('express-mongo-sanitize');
 const { finalCatch } = require('./app/middleware/errors');
 const {
 	allowInsecurePrototypeAccess
@@ -22,12 +27,24 @@ const indexRouter = require('./app/routes/index');
 const usersRouter = require('./app/routes/users');
 const worksRouter = require('./app/routes/works');
 const photosRouter = require('./app/routes/photos');
-const imagesRouter = require('./app/routes/images');
+
 
 // @desc INITIALIZE APP
 const app = express();
 dotenv.config({ path: 'app/config/config.env' });
 connectDB();
+
+// @desc SECURITY
+app.use(helmet());
+app.use(xss());
+app.use(hpp());
+app.use(cors());
+app.use(mongoSanitize());
+const limiter = rateLimit({
+	windowMs: 10 * 60 * 1000, // 10 mins
+	max: 100
+});
+app.use(limiter);
 
 // @desc HBS HELPERS
 const {
@@ -89,22 +106,17 @@ app.use(function (req, res, next) {
 	next();
 });
 
-
-
-// @desc SECURITY
-app.use(helmet());
-
 // @desc MOUNT ROUTES
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/works', worksRouter);
 app.use('/photos', photosRouter);
-app.use('/images', imagesRouter);
+
 
 // catch 404 and forward to error handler
-// app.use(function (req, res, next) {
-// 	next(createError(404));
-// });
+app.use(function (req, res, next) {
+	next(createError(404));
+});
 
 // error handler
 app.use(finalCatch);
