@@ -12,5 +12,12 @@
 
 
 {{#each photos}}
-<img class="work-detail" src="{{this.url}}" alt="{{this.title}}" title="{{this.title}}">
+<div>
+  <img class="work-detail" src="{{this.url}}" alt="{{this.title}}" title="{{this.title}}">
+  <form action="/photos/{{this._id}}/delete?_method=DELETE" method="POST">
+    <input type="hidden" name="_method" id="hidden_delete" value="DELETE">
+    <input type="submit" name="submit" id="delete_work" value="delete">
+  </form>
+</div>
+
 {{/each}}

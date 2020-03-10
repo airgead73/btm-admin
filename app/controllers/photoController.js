@@ -36,8 +36,10 @@ exports.photo_delete_get = asyncHandler(function (req, res, next) {
 });
 
 // Handle photo delete on POST.
-exports.photo_delete_delete = asyncHandler(function (req, res, next) {
-	res.send('NOT IMPLEMENTED: photo delete POST');
+exports.photo_delete_delete = asyncHandler(async function (req, res, next) {
+	const photo = await Photo.findByIdAndDelete(req.params.photoID);
+	console.log("photo deleted: ", photo);
+	res.redirect('/works');
 });
 
 // Display photo update form on GET.

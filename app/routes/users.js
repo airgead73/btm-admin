@@ -1,19 +1,20 @@
 const express = require('express');
 const router = express.Router();
 const user_controller = require('../controllers/userController');
+const { ensureAuthenticated } = require('../middleware/auth');
 
 
 // GET request for creating user
 // @desc display form: user_create
 // @route GET /users/create
 // @access private
-router.get('/register', user_controller.user_create_get);
+router.get('/register', ensureAuthenticated, user_controller.user_create_get);
 
 // POST request for creating user
 // @desc process form: user_create
 // @route POST /users/register
 // @access private
-router.post('/register', user_controller.user_create_post);
+router.post('/register', ensureAuthenticated, user_controller.user_create_post);
 
 // GET request for login user
 // @desc display form: user_login
