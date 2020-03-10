@@ -1,6 +1,6 @@
 # BTM ADMIN
 
-**branch: v4**
+**branch: v5**
 ###technologies
 
 - node
@@ -13,4 +13,5 @@
 
 **this branch**
 
-- add image upload functionality
+- add delete photo functionality
+- add bootstrap 
