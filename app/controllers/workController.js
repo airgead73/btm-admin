@@ -81,6 +81,7 @@ exports.work_update_put = asyncHandler(async function (req, res) {
 		new: true,
 		runValidators: true
 	});
+	console.log(work);
 	req.flash('success_msg', `"${req.body.title}" updated`);
 	res.redirect('/works');
 });

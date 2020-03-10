@@ -18,11 +18,14 @@ const WorkSchema = new mongoose.Schema({
 	},
 	material: {
 		type: String,
-		enum: ['bronze', 'iron', 'marble', 'clay', 'alabaster', 'oil and canvas', 'pencil']
+		enum: ['bronze', 'iron', 'marble', 'clay', 'alabaster', 'oil & canvas', 'pencil']
 	},
 	category: {
 		type: String,
 		enum: ['figure', 'portrait', 'landscape', 'still life', 'wildlife', 'abstract']
+	},
+	thumbnail: {
+		type: String
 	},
 	createdAt: {
 		type: Date,

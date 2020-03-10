@@ -99,3 +99,19 @@ main {
   /* border-top-left-radius: 0;
   border-top-right-radius: 0; */
 }
+
+div.thumbnail {
+  width: 100%;
+  padding-top: 75%;
+  background-image: url('https://res.cloudinary.com/dpm/image/upload/v1583816904/btm/bronco/bronco-1583816904528.jpg');
+  background-position: center center;
+  background-size: cover;
+  border-top-right-radius: .25rem;
+  border-top-left-radius: .25rem;
+}
+
+div.thumbnail > p {
+  background-color: rgba(0,0,0,.5);
+  line-height: 2;
+  color: white;
+}
