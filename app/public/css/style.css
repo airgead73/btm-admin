@@ -1,77 +1,101 @@
-body {
-  max-width: 800px;
-  margin: 0 auto;
+* {
+  margin: 0;
+}
+html, body {
+  height: 100%;
+}
+.page-wrap {
+  min-height: 100%;
+  /* equal to footer height */
+	margin-bottom: -50px;
+	background-color: #f5f5f5; 
+}
+.page-wrap:after {
+  content: "";
+  display: block;
+}
+.site-footer, .page-wrap:after {
+  height: 50px; 
+}
+.site-footer {
+	padding-top: 12px;
+  background:#F7F9FA;
 }
 
-nav {
-  text-align: center;
-  padding-top: 15px;
+main {
+	padding-top: 50px;
 }
 
-hr {
-  margin-bottom: 25px;
+/* login */
+
+.bd-placeholder-img {
+	font-size: 1.125rem;
+	text-anchor: middle;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
-#form_signin {
-  max-width: 200px;
-  margin: 50px auto auto auto;
-  border: 1px solid gray;
+@media (min-width: 768px) {
+	.bd-placeholder-img-lg {
+		font-size: 3.5rem;
+	}
+}
+
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
   padding: 15px;
+  margin: 10% auto auto auto;
 }
 
-form > input {
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  /* border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0; */
+}
+.form-signin input[type="password"] {
   margin-bottom: 10px;
+  /* border-top-left-radius: 0;
+  border-top-right-radius: 0; */
+}
+
+.form-register {
   width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: 5% auto auto auto;
 }
 
-form > input[type='submit'] {
-  background-color: slategray;
-  color: white;
-  line-height: 2.5;
+.form-register .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
 }
-
-legend {
-  margin-bottom: 15px;
-  text-align: center;
+.form-register .form-control:focus {
+  z-index: 2;
 }
-
-.alert {
-  border: 1px dotted;
-  padding: 5px;
-  margin-bottom: 5px;
+.form-register input[type="email"] {
+  margin-bottom: -1px;
+  /* border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0; */
 }
-
-.alert-success {
-  color: green;
-  border-color: green;
-}
-
-.alert-danger {
-  color: indianred;
-  border-color: indianred;
-}
-
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-
-footer {
-  text-align: center;
-}
-
-img.work-detail {
-  height: 200px;
-  width: auto;
+.form-register input[type="password"] {
+  margin-bottom: 10px;
+  /* border-top-left-radius: 0;
+  border-top-right-radius: 0; */
 }

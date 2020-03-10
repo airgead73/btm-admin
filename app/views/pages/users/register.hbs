@@ -1,19 +1,34 @@
-<form action="/users/register" method="POST">
-  <legend>register</legend>
-  <label for="fname">first name</label>
-  <input name="fname" type="text" value="{{fname}}">
-  <br>
-  <label for="lname">last name</label>
-  <input name="lname" type="text" value="{{lname}}">
-  <br>
-  <label for="email">email</label>
-  <input name="email" type="email" value="{{email}}">
-  <br>
-  <label for="password">password</label>
-  <input name="password" type="password" value="{{password}}">
-  <br>
-  <label for="confirmPassword"> confirm password</label>
-  <input name="confirmPassword" type="password" value="{{confirmPassword}}">
-  <br>
-  <input type="submit" value="submit">
+<form class="form-register shadow-lg p-3 mb-5 bg-white rounded" action="/users/register" method="POST">
+  <!-- <img class="mb-4" src="/docs/4.4/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"> -->
+  <h1 class="h3 mb-2">BTM ADMIN</h1>
+  <h2 class="h5 mb-5 font-weight-normal">register new user</h2>
+  <div class="form-group">
+    <label for="fname" class="sr-only">first name</label>
+    <input name="fname" type="text" id="fname" class="form-control" value="{{fname}}" placeholder="first name" required
+      autofocus>
+  </div>
+  <div class="form-group">
+    <label for="lname" class="sr-only">last name</label>
+    <input name="lname" type="text" id="lname" class="form-control" value="{{lname}}" placeholder="last name" required
+      autofocus>
+  </div>
+  <div class="form-group">
+    <label for="email" class="sr-only">email</label>
+    <input name="email" type="email" id="email" class="form-control" value="{{email}}" placeholder="email address"
+      required autofocus>
+  </div>
+  <div class="form-group">
+    <label for="password" class="sr-only">Password</label>
+    <input name="password" type="password" id="password" class="form-control" value="{{password}}"
+      placeholder="password" required>
+  </div>
+
+  <div class="form-group">
+    <label for="confirmPassword" class="sr-only">Password</label>
+    <input name="confirmPassword" type="password" id="confirmPassword" value="{{confirmPassword}}"
+      placeholder="confirm password" class="form-control" placeholder="Confirm Password" required>
+  </div>
+
+  <button class="btn btn-lg btn-primary btn-block mt-5" type="submit">register</button>
+  <p class="mt-5 mb-3 text-muted text-center">&copy; 2020</p>
 </form>

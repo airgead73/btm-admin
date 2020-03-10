@@ -3,14 +3,14 @@
 {{> _head}}
 
 <body>
-  <div>
+  <div class="page-wrap">
     {{#if user}}
     {{> _navbar}}
     <hr>
     {{/if}}
     {{> _msg}}
     {{> _err}}
-    <main>
+    <main class="container">
       {{{body}}}
     </main>
   </div>
