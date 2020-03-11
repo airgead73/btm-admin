@@ -1,31 +1,30 @@
-{{!-- <form action="/works/{{work}}/photos/upload" enctype="multipart/form-data" method="POST">
-  <legend>upload photo file</legend>
-  <label for="myfile">Select a file:</label>
-  <input type="file" id="myfile" name="myfile">
-  <input type="submit" value="upload">
-</form> --}}
+<div class="row justify-content-md-center">
+  <div class="col-md-6">
+    <form action="/works/{{work_id}}/photos/create" method="POST" enctype="multipart/form-data">
+      <div class="form-row">
+        <div class="col">
+          <input type="text" class="form-control" name="title" placeholder="photo title">
+        </div>
+        <div class="col">
+          <input type="text" class="form-control" name="caption" placeholder="photo caption">
+        </div>
+      </div>
 
-
-<form action="/works/{{work_id}}/photos/create" method="POST" enctype="multipart/form-data">
-  <div class="form-group">
-    <input class="form-control" type="text" name="title" placeholder="title">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroupFileAddon01"> photo</span>
+        </div>
+        <div class="custom-file">
+          <input type="file" name="image" class="custom-file-input" id="inputGroupFile01"
+            aria-describedby="inputGroupFileAddon01">
+          <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+        </div>
+      </div>
+      <input class="form-control" type="hidden" name="work_id" value="{{work_id}}">
+      <input class="form-control" type="hidden" name="work_title" value="{{work_title}}">
+      <div class="form-group">
+        <button class="btn btn-primary">save</button>
+      </div>
+    </form>
   </div>
-  <div class="form-group">
-    <label for="image">Image</label>
-    <input type="file" id="image" name="image" accept="image/*" required>
-  </div>
-  <div class="form-group">
-    <input class="form-control" type="text" name="caption" placeholder="caption">
-  </div>
-  <div class="form-group">
-    <input class="form-control" type="text" name="work_id" value="{{work_id}}">
-  </div>
-
-  <div class="form-group">
-    <input class="form-control" type="text" name="work_title" value="{{work_title}}">
-  </div>
-
-  <div class="form-group">
-    <button class="btn btn-lg btn-primary btn-block">Submit!</button>
-  </div>
-</form>
+</div>
