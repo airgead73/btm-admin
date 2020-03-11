@@ -91,8 +91,8 @@ module.exports = {
       errors.push({ text: 'Passwords do not match' });
     }
 
-    if (password.length < 8 || password.length > 16) {
-      errors.push({ text: 'Passwords must be between 4 and 16 characters' });
+    if (password.length < 5 || password.length > 16) {
+      errors.push({ text: 'Passwords must be between 5 and 16 characters' });
     }
 
     if (!errors.length) {

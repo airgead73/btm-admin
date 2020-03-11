@@ -1,8 +1,20 @@
 {{#if error_msg}}
-<div class="alert alert-success">{{error_msg}}</div>
+<div class="container mt-2 alert alert-success">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <p>{{error_msg}}</p>
+</div>
 {{/if}}
 
+{{#if errors}}
+<div class="container mt-2 alert alert-danger">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  {{#each errors}}
+  <p>{{this.text}}</p>
+  {{/each}}
 
-{{#each errors}}
-<div class="alert alert-danger">{{this.text}}</div>
-{{/each}}
+</div>
+{{/if}}

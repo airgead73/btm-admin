@@ -7,9 +7,10 @@
     {{#if user}}
     {{> _navbar}}
     {{/if}}
-    {{> _msg}}
-    {{> _err}}
     <main class="container-fluid">
+      {{> _msg}}
+      {{> _err}}
+
       {{{body}}}
     </main>
   </div>
