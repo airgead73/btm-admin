@@ -28,6 +28,7 @@ const indexRouter = require('./app/routes/index');
 const usersRouter = require('./app/routes/users');
 const worksRouter = require('./app/routes/works');
 const photosRouter = require('./app/routes/photos');
+const apiRouter = require('./app/routes/api');
 
 
 // @desc INITIALIZE APP
@@ -112,6 +113,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/works', worksRouter);
 app.use('/photos', photosRouter);
+app.use('/api', apiRouter);
 
 
 // catch 404 and forward to error handler
