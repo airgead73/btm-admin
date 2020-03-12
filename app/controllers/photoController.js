@@ -15,6 +15,7 @@ exports.photo_list = asyncHandler(async function (req, res, next) {
 		const photos = await Photo.find();
 		res.status(200).render('pages/photos/index', {
 			success: true,
+			count: photos.length,
 			photos
 		})
 	}
