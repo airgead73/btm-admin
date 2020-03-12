@@ -31,6 +31,9 @@ const WorkSchema = new mongoose.Schema({
 		type: Date,
 		default: Date.now
 	}
+}, {
+	toJSON: { virtuals: true },
+	toObject: { virtuals: true }
 });
 
 // Create work slug from name
@@ -38,5 +41,13 @@ WorkSchema.pre('save', function (next) {
 	this.slug = slugify(this.title, { lower: true });
 	next();
 });
+
+// Reverse populate with virtuals
+WorkSchema.virtual('photos', {
+	ref: 'Photo',
+	localField: '_id',
+	foreignField: 'work',
+	justOne: false
+})
 
 module.exports = mongoose.model('Work', WorkSchema);
