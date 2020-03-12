@@ -42,6 +42,10 @@ WorkSchema.pre('save', function (next) {
 	next();
 });
 
+WorkSchema.pre('remove', async function (next) {
+	await this.model('Photo').deleteMany({ work: this._id })
+})
+
 // Reverse populate with virtuals
 WorkSchema.virtual('photos', {
 	ref: 'Photo',

@@ -5,16 +5,21 @@ const asyncHandler = require('../middleware/async');
 
 // Display list of all photos.
 exports.photo_list = asyncHandler(async function (req, res, next) {
-	const photos = await Photo.find({ work: `${req.params.workID}` });
-	res.status(200).render('pages/works/', {
-		success: true,
-		photos: photos
-	})
-	// if (req.params.workID) {
-	// 	res.send('NOT IMPLEMENTED: photo list (specific work)');
-	// } else {
-	// 	res.send('NOT IMPLEMENTED: photo list');
-	// }
+	if (req.params.workID) {
+		const photos = await Photo.find({ work: `${req.params.workID}` });
+		res.status(200).render('pages/works/', {
+			success: true,
+			photos: photos
+		})
+	} else {
+		const photos = await Photo.find();
+		res.status(200).render('pages/photos/index', {
+			success: true,
+			photos
+		})
+	}
+
+
 });
 
 // Display detail page for a specific photo.

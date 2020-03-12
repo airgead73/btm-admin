@@ -60,7 +60,8 @@ exports.work_delete_get = asyncHandler(async function (req, res) {
 
 // Handle work delete on DELETE.
 exports.work_delete_delete = asyncHandler(async function (req, res) {
-	const work = await Work.findByIdAndDelete(req.params.workID);
+	const work = await Work.findById(req.params.workID);
+	work.remove();
 	console.log("work deleted: ", work);
 	res.redirect('/works');
 });

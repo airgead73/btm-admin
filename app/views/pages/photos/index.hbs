@@ -1,6 +1,16 @@
-<h1>list photos</h1>
+<div class="row">
+  <div class="col-md-12">
+    <h1>list photos</h1>
+  </div>
+</div>
 
-{{#each photos}}
-<img src="{{this.url}}" alt="{{this.title}}" title="{{this.title}}">
+<div class="row">
+  {{#each photos}}
+  <div class="col-md-2 card">
+    <div class="card-body">
+      <img class="img-fluid" src="{{this.url}}" alt="{{this.title}}" title="{{this.title}}" style="height: 200px;">
+    </div>
 
-{{/each}}
+  </div>
+  {{/each}}
+</div>
