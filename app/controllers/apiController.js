@@ -4,12 +4,12 @@ const asyncHandler = require('../middleware/async');
 
 
 exports.work_list = asyncHandler(async function (req, res, next) {
-  let query = req.query.modality;
+  let query = req.query;
   let works = {};
   let count = {};
 
   if (query) {
-    works = await Work.find({ modality: query }).populate('photos').sort('title');
+    works = await Work.find(req.query).populate('photos').sort('title');
     count = works.length
   } else {
     query = works.length;
