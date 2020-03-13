@@ -9,16 +9,18 @@ exports.work_list = asyncHandler(async function (req, res, next) {
   let count = {};
 
   if (query) {
-    works = await Work.find({ modality: query }).populate().sort('title');
+    works = await Work.find({ modality: query }).populate('photos').sort('title');
     count = works.length
   } else {
     query = works.length;
-    works = await Work.find().sort('title');
+    works = await Work.find().populate('photos').sort('title');
     count.all = works.length;
     count.sculpture = works.filter(work => work.modality === 'sculpture').length;
     count.painting = works.filter(work => work.modality === 'painting').length;
     count.drawing = works.filter(work => work.modality === 'drawing').length;
   }
+
+
 
   res.status(200).json({
     query,
@@ -32,15 +34,30 @@ exports.photo_list = asyncHandler(async function (req, res, next) {
   const query = req.query.modality;
   const photos = await Photo.find().populate({
     path: 'work',
-    select: 'title modality',
+    match: {
+      modality: query
+    }
   });
 
-  const count = photos.length;
+  filteredResults = photos.filter(photo => {
+    return photo.work;
+  });
+
+  filteredResults.forEach(photo => {
+    console.log(photo.work.modality);
+  })
+
+  const photoCount = photos.length;
+  const filterCount = filteredResults.length;
+
+
 
   res.status(200).json({
     query,
-    count,
-    photos
+    photoCount,
+    filterCount,
+    photos,
+    filteredResults
   });
 
 });
